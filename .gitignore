@@ -1,0 +1,13 @@
+bin/
+target/
+java_lib/
+# User-specific stuff Idea and eclipse:
+*.iml
+.project
+.classpath
+.project
+.settings/
+.idea/
+.metadata/
+src/test/java/test/for_test/
+src/test/java/module/erb/
