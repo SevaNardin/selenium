@@ -24,7 +24,7 @@ public class GoogleTest {
 //        System.setProperty("webdriver.chrome.driver", "/home/seva/chromedriver");
         driver = new ChromeDriver();
         //окно разворачивается на полный экран
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
         //задержка на выполнение теста = 10 сек.
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
