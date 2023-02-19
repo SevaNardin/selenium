@@ -1,45 +1,51 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.*;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.util.concurrent.TimeUnit;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 /**
  * @author Seva Nardin
  */
 public class GoogleTest {
     private WebDriver driver;
+    Logger logger = LoggerFactory.getLogger(GoogleTest.class);
 
     @BeforeAll
     static void setupClass() {
         // автоматизация управления драйверами
-        WebDriverManager.chromedriver().setup();
+        Configuration.browserSize = "1920x1080";
+        Configuration.headless = false;
+        Configuration.browser = "chrome";
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        Configuration.browserCapabilities = capabilities;
     }
 
     @BeforeEach
     void setUp() {
-//        System.setProperty("webdriver.chrome.driver", "/home/seva/chromedriver");
-        driver = new ChromeDriver();
-        //окно разворачивается на полный экран
-//        driver.manage().window().maximize();
-        //задержка на выполнение теста = 10 сек.
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
     }
 
     @Test
-    void test1() {
-        driver.get( "https://www.google.ru/" );
-        String txt = driver.getTitle();
+    void test1() throws InterruptedException {
+        open( "https://www.google.ru/" );
+        boolean result = $(By.name("q")).isDisplayed();
+        Thread thread = new Thread(() -> System.out.println("Hello!"));
 
-        Assertions.assertEquals( "Google", txt );
+        thread.run();
+
+        Assertions.assertTrue( result );
     }
 
     @AfterEach
     void tearDown() {
-        driver.quit();
+        Selenide.closeWebDriver();
     }
 
 }
