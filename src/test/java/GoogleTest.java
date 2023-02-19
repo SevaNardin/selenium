@@ -19,7 +19,6 @@ public class GoogleTest {
 
     @BeforeAll
     static void setupClass() {
-        // автоматизация управления драйверами
         Configuration.browserSize = "1920x1080";
         Configuration.headless = false;
         Configuration.browser = "chrome";
